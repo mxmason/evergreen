@@ -1,15 +1,58 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "defaults"
+      }
+    ],
+    "@babel/preset-react"
+  ],
   "plugins": [
-    "@babel/plugin-transform-runtime",
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-private-methods",
-    "babel-plugin-add-react-displayname"
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": 3,
+        "version": "7.15.8"
+      }
+    ]
   ],
   "env": {
+    "commonjs": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "exclude": ["@babel/plugin-proposal-object-rest-spread"],
+            "modules": "commonjs",
+            "targets": "node 12"
+          }
+        ],
+        [
+          "@babel/preset-react",
+          {
+            "useSpread": true
+          }
+        ]
+      ]
+    },
     "esm": {
-      "presets": [["@babel/preset-env", { "modules": false }]],
-      "plugins": [["@babel/plugin-transform-runtime", { "useESModules": true }]]
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "exclude": ["@babel/plugin-proposal-object-rest-spread"],
+            "modules": false,
+            "targets": { "esmodules": true }
+          }
+        ],
+        [
+          "@babel/preset-react",
+          {
+            "useSpread": true,
+          }
+        ]
+      ]
     }
   }
 }
